@@ -8,11 +8,13 @@ public class Day_01 {
     public static void main(String[] args) throws FileNotFoundException {
         int answer1 = 0, answer2 = 0;
         ArrayList<Integer> arr1 = new ArrayList<>(), arr2 = new ArrayList<>();
-        Scanner reader = new Scanner(new File("../resources/01.txt")).useDelimiter("   |\r\n");
+        try (Scanner reader = new Scanner(new File("../resources/01.txt")).useDelimiter("   |\r\n")) {
             while (reader.hasNextLine()) {              //Parsing numbers to the ArrayLists
                 arr1.add(reader.nextInt());
                 arr2.add(reader.nextInt());
             }
+            reader.close();                             //Close scanner to prevent memory leak
+        }
         int dupeCount;
         for (int i = 0; i < arr1.size(); i++) {         //Part 2 solution calculation
             dupeCount = 0;

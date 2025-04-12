@@ -6,17 +6,21 @@ import java.util.Scanner;
 public class Day_02 {
     public static void main(String[] args) throws FileNotFoundException {
         int answer1 = 0, answer2 = 0;
-        Scanner fileScan = new Scanner(new File("../resources/02.txt"));
-        while (fileScan.hasNextLine()) {
-            Scanner reportScan = new Scanner(fileScan.nextLine()).useDelimiter(" |\r\n");
-            ArrayList<Integer> r = new ArrayList<>();
-            while (reportScan.hasNextInt()) r.add(reportScan.nextInt());                        //Parse report to the ArrayList
-            if (test(r)) answer1++;                                                             //Part 1 report test
-            else for (int i = 0; i < r.size(); i++) {
+        try (Scanner fileScan = new Scanner(new File("../resources/02.txt"))) {
+            while (fileScan.hasNextLine()) {
+                ArrayList<Integer> r = new ArrayList<>();
+                try (Scanner reportScan = new Scanner(fileScan.nextLine()).useDelimiter(" |\r\n")) {
+                    while (reportScan.hasNextInt()) r.add(reportScan.nextInt());                //Parse report to the ArrayList
+                    reportScan.close();                                                         //Close reader to prevent memory leak
+                }
+                if (test(r)) answer1++;                                                         //Part 1 report test
+                else for (int i = 0; i < r.size(); i++) {
                     ArrayList<Integer> r1 = new ArrayList<>(r);                                 //Part 2 modified report tests
                     r1.remove(i);
                     if(test(r1)) { answer2++; break; }
                 }
+            }
+            fileScan.close();                                                                   //Close reader to prevent memory leak
         }
         System.out.println(answer1 + "\r\n" + answer2 + "\r\n" + (answer1 + answer2));          //Print solutions
     }
