@@ -22,7 +22,7 @@ public class Day_07 {
         System.out.println(answer1+"\r\n"+answer2);                                 //Print solutions
     }
     public static boolean solveEquationPM(long val, ArrayList<Long> arr) {          //Attempts to solve the equation using only * and + operators
-        for (int i = 0; i < Math.pow(2, arr.size()-1); i++) {                       //Every possible equation is encoded in the binary numbers 0 to n(operators)
+        for (int i = 0; i < Math.pow(2, arr.size()-1); i++) {                       //Every possible equation is encoded in the binary numbers 0 to (2^(n(operators)-1))-1
             String bits = Integer.toBinaryString(i);
             while (bits.length() < arr.size()-1) bits="0"+bits;                     //Add leading 0s if needed
             long result = arr.get(0);
@@ -34,7 +34,7 @@ public class Day_07 {
         return false;
     }
     public static boolean solveEquationCPM(long val, ArrayList<Long> arr) {         //Attempts to solve the equation using ||, * and + operators
-        for (int i = 0; i < Math.pow(3, arr.size()-1); i++) {                       //Every possible equation is encoded in the ternary numbers 0 to n(operators)
+        for (int i = 0; i < Math.pow(3, arr.size()-1); i++) {                       //Every possible equation is encoded in the ternary numbers 0 to (3^(n(operators)-1))-1
             String trits = toTritString(i);
             while (trits.length() < arr.size()-1) trits="0"+trits;                  //Add leading 0s if needed
             long result = arr.get(0);
